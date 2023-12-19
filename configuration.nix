@@ -77,6 +77,7 @@
       github-desktop
       ocs-url
       mullvad-browser
+      krita
       spicetify-cli
       spotify
       lutris
@@ -90,7 +91,15 @@
  
 
   # Rest der Konfiguration
-  nixpkgs.config.allowUnfree = true;
+  # Rest der Konfiguration
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = pkgs: with pkgs; {
+      pidgin-with-plugins = pkgs.pidgin.override {
+        plugins = [ pidgin-otr ];
+      };
+    };
+  };
   environment.systemPackages = with pkgs; [
     nextcloud-client
     gnome.nautilus-python
@@ -112,6 +121,8 @@
     fira-code
     libinput
     gnomeExtensions.x11-gestures
+    exodus
+    pidgin-with-plugins  # Ersetzen Sie 'pidgin' und 'pidginPackages.pidgin-otr' hiermit
     gnome.pomodoro
     gnome3.gnome-tweaks
     gnome.gnome-shell-extensions
@@ -131,9 +142,10 @@
     gnomeExtensions.logo-menu
     neofetch
     gcc
-    # support both 32- and 64-bit applications
+    appimage-run
     
   ];
+
 
   programs.mtr.enable = true;
   programs.gnupg.agent = {
