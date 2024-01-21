@@ -1,4 +1,3 @@
-{config, pkgs, lib, ... }:
 {
  imports = [
       ./hardware-configuration.nix
@@ -64,11 +63,12 @@
   users.users.nix = {
     isNormalUser = true;
     description = "nix";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       session-desktop
       kitty
+      distrobox
       telegram-desktop
       discord
       flameshot
@@ -95,8 +95,14 @@
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: with pkgs; {
-      pidgin-with-plugins = pkgs.pidgin.override {
+      pidgin-with-plugins = pidgin.override {
         plugins = [ pidgin-otr ];
+      };
+      catppuccin-gtk = catppuccin-gtk.override {
+        accents = [ "pink" ];
+        size = "standard";
+        tweaks = [ "rimless" ];
+        variant = "latte";
       };
     };
   };
@@ -108,6 +114,9 @@
     neovim
     python312
     git
+    btop
+    element-desktop
+    whois
     gnumake
     tdrop
     nodejs_20
@@ -124,6 +133,7 @@
     exodus
     pidgin-with-plugins  # Ersetzen Sie 'pidgin' und 'pidginPackages.pidgin-otr' hiermit
     gnome.pomodoro
+    go
     gnome3.gnome-tweaks
     gnome.gnome-shell-extensions
     gnome.gnome-themes-extra 
@@ -141,6 +151,7 @@
     gnomeExtensions.tray-icons-reloaded
     gnomeExtensions.logo-menu
     neofetch
+    docker
     gcc
     appimage-run
     
@@ -153,12 +164,18 @@
     enableSSHSupport = true;
   };
   services.gnome.gnome-browser-connector.enable = true;
+
   services.touchegg.enable = true;
   services.mullvad-vpn.enable = true;
   users.users.nix.shell = pkgs.fish;
   programs.fish.enable = true;
   services.openssh.enable = true;
-
+  virtualisation.docker.enable = true;
+  boot.extraModprobeConfig = ''
+    options kvm_intel nested=1
+    options kvm_intel emulate_invalid_guest_state=0
+    options kvm ignore_msrs=1
+  '';
   networking.firewall.allowedTCPPorts = [ 80 443 1401 5000 ];
   networking.firewall.allowedUDPPorts = [ 53 1194 1195 1196 1197 1300 1301 1302 1303 1400 5000 ];
 
