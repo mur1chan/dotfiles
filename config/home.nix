@@ -1,1 +1,0 @@
-/home/nix/.config/home-manager/home.nix
