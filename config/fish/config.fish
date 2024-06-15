@@ -3,6 +3,17 @@ function nixupdate
     sudo sudo nix-channel --update
 end
 
+alias rmi="vmstart"
+function vmstart
+    sudo virsh net-start default
+end
+
+
+alias rmi="homeswitch"
+function homeswitch 
+  home-manager switch
+end
+
 alias rmi="nixrebuild"
 function nixrebuild
     sudo nixos-rebuild switch
