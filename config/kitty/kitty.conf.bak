@@ -1,5 +1,5 @@
 # BEGIN_KITTY_THEME
-# Catppuccin-Latte
+# Ayu Light
 include current-theme.conf
 # END_KITTY_THEME
 
@@ -7,9 +7,9 @@ include current-theme.conf
 font_size 16.0
 font_family Montserrat
 # BACKGROUND IMAGE
-# background_image ~/.config/kitty/kitty-light.png
-# background_image_layout centered 
-# background_tint 0.9
+background_image ~/.config/kitty/kitty-light.png
+background_image_layout centered 
+background_tint 0.9
 
 # # TAB BAr
 active_tab_font_style normal

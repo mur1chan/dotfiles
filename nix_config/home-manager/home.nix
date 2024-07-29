@@ -20,7 +20,9 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
-
+              nixpkgs.config.permittedInsecurePackages = [
+                "python3.11-youtube-dl-2021.12.17"
+              ];
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -47,8 +49,6 @@
     pkgs.qemu
     pkgs.quickemu
     pkgs.cryptomator
-    pkgs.jetbrains.rust-rover
-    pkgs.localsend
     pkgs.ripgrep
     pkgs.wget
     pkgs.python311Packages.pip
@@ -56,11 +56,48 @@
     pkgs.nil
     pkgs.djlint
     pkgs.ast-grep
-    pkgs.calibre
     pkgs.tldr
     pkgs.vscode
     pkgs.mpv-unwrapped
     pkgs.yazi
+    pkgs.rage
+    pkgs.pwgen
+    pkgs.uv
+    pkgs.zoxide
+    pkgs.marksman
+    pkgs.obs-studio
+    pkgs.tracker
+    pkgs.gst_all_1.gstreamer
+    pkgs.pkg-config
+    pkgs.openssl
+    pkgs.gcc
+    pkgs.zlib
+    pkgs.lazygit
+    pkgs.gh
+    pkgs.languagetool
+    pkgs.fastfetch
+    pkgs.nixpacks
+    pkgs.ffmpeg
+    pkgs.lollypop
+    pkgs.picard
+    pkgs.soundconverter
+    pkgs.libarchive
+    pkgs.gnupg
+    pkgs.krita
+    pkgs.tailwindcss
+    pkgs.fzf
+    pkgs.celluloid
+    pkgs.libgpod
+    pkgs.rhythmbox
+    pkgs.localsend
+    pkgs.filezilla
+    pkgs.jellyfin-media-player
+    pkgs.qbittorrent
+    pkgs.google-chrome
+    pkgs.betterbird
+    pkgs.kdenlive
+    pkgs.mullvad-browser
+    pkgs.zip
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -129,24 +166,24 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.yazi.enableFishIntegration = true;
-#   nixpkgs.config = {
-    # packageOverrides = pkgs: with pkgs; {
-      #pidgin-with-plugins = pidgin.override {
-        #plugins = [ pidgin-otr ];
-#      };
+  nixpkgs.config = {
+    packageOverrides = pkgs: with pkgs; {
+     #  pidgin-with-plugins = pidgin.override {
+     #    plugins = [ pidgin-otr ];
+     # };
 #      whitesur-gtk-theme = whitesur-gtk-theme.override {
 #      	altVariants = ["all"];
-#	colorVariants = ["Light"];
-#	opacityVariants = ["solid"];
-#	themeVariants = ["pink"];
-#	nautilusStyle = "glassy";
+# colorVariants = ["Light"];
+# opacityVariants = ["solid"];
+# themeVariants = ["pink"];
+# nautilusStyle = "glassy";
 #      };
-      # catppuccin-gtk = catppuccin-gtk.override {
-      #  accents = [ "pink" ];
-      #  size = "standard";
-      #  tweaks = [ "rimless" ];
-      #  variant = "latte";
-      #};
-#    };
-#  };
+      catppuccin-kde = catppuccin-kde.override {
+       accents = [ "pink" ];
+       size = "standard";
+       tweaks = [ "rimless" ];
+       variant = "latte";
+      };
+   };
+ };
 }
